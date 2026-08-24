@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(curl -s --max-time 5 http://localhost:5173/)",
+      "Bash(echo *)",
+      "Bash(unzip -l ~/Library/Caches/electron/electron-v31.7.7-darwin-arm64.zip)",
+      "Bash(unzip -l /Users/hoangngo/Library/Caches/electron/c94f2fc32e1fb05767f75322ea533eeb9828155f017ec184140930a3ec825e81/electron-v31.7.7-darwin-arm64.zip)",
+      "Bash(/Users/hoangngo/Code/PhotoIdWork/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron --version)"
+    ]
+  }
+}

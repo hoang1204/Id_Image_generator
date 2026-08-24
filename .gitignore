@@ -28,9 +28,9 @@ coverage/
 *.tsbuildinfo
 
 # Local agent/editor configuration
-.claude/
-.vscode/
-.idea/
+# .claude/
+# .vscode/
+# .idea/
 
 # Operating system files
 .DS_Store
