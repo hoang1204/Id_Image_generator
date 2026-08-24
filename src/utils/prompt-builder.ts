@@ -57,11 +57,16 @@ const sizePhrases: Record<ImageSize, string> = {
 
 export function buildPrompt(choices: EditorChoices): string {
   const size = sizePhrases[choices.size] ?? 'ảnh thẻ'
+  // Hair preservation belongs inside the absolute identity lock only when 'keep' is
+  // chosen; an explicit style (tidy/natural/formal/bun/loose) is applied via hairStyle
+  // instead, so the lock never contradicts the selected style.
+  const preserveHair = choices.hair === 'keep' ? ' Giữ nguyên kiểu tóc và hình dáng tóc hiện tại.' : ''
+  const hairStyle = choices.hair === 'keep' ? '' : ` ${phrase(phrases.hair, choices.hair)}.`
   return [
-    `Tạo một ${phrase(phrases.preset, choices.preset)}.`,
-    'Giữ nguyên danh tính của người trong ảnh gốc một cách chính xác: giữ lại các đường nét khuôn mặt, tỷ lệ, màu da và độ tuổi nhận biết được. Không biến họ thành một người khác.',
-    `${phrase(phrases.outfit, choices.outfit)}. ${phrase(phrases.hair, choices.hair)}.`,
+    `Tạo một ${phrase(phrases.preset, choices.preset)} từ ảnh người dùng tải lên, dùng ảnh đó làm tài liệu tham chiếu danh tính DUY NHẤT và bắt buộc.`,
+    `BẮT BUỘC giữ nguyên danh tính của người trong ảnh gốc: giữ nguyên giới tính và cách thể hiện giới tính, hình dạng khuôn mặt, màu da và đặc điểm dân tộc, độ tuổi nhận biết được và tỷ lệ cơ thể. Chỉ giữ nguyên các chi tiết khuôn mặt/cơ thể hiện rõ trong ảnh gốc (nốt ruồi, tàn nhang, sẹo, hình xăm, nếp nhăn, vết chân chim, khuyết điểm...); tuyệt đối không thêm, bỏ bớt, phóng đại hoặc bịa ra bất kỳ chi tiết, nếp nhăn hoặc dấu hiệu lão hóa nào không có trong ảnh.${preserveHair} Không đổi giới tính: trang phục và kiểu tóc đã chọn chỉ là phong cách, không được làm người này thành giới tính khác hoặc thành người khác. Tuyệt đối không sáng tạo, thay thế hoặc ghép một người khác.`,
+    `${phrase(phrases.outfit, choices.outfit)}.${hairStyle}`,
     `Sử dụng ${phrase(phrases.background, choices.background)}, ánh sáng studio tự nhiên cân bằng, bố cục chụp thẳng đứng từ đầu đến vai, và biểu cảm tự nhiên điềm tĩnh phù hợp với ${size}.`,
-    `${phrase(phrases.retouch, choices.retouch)}. Giữ kết quả chân thực như ảnh thật, sắc nét, phơi sáng đều và bố cục chuyên nghiệp. Không thêm chữ, logo, viền, hình mờ, trang sức hoặc người thừa.`,
+    `${phrase(phrases.retouch, choices.retouch)}. Mọi thay đổi chỉ giới hạn ở nền, trang phục, kiểu tóc và phần retouch đã chọn; giữ kết quả chân thực như ảnh thật, sắc nét, phơi sáng đều và bố cục chuyên nghiệp. Không thêm chữ, logo, viền, hình mờ, trang sức hoặc người thừa.`,
   ].join(' ')
 }

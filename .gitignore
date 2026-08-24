@@ -35,3 +35,5 @@ coverage/
 # Operating system files
 .DS_Store
 Thumbs.db
+promptCommon.txt
+prompt.txt

@@ -29,10 +29,10 @@ function phrase(group: keyof RestorationChoices, value: string): string {
 
 export function buildRestorationPrompt(choices: RestorationChoices): string {
   return [
-    'Phục chế ảnh gốc này một cách chân thực và bảo tồn lịch sử của nó.',
-    'Giữ chính xác danh tính, độ tuổi nhận biết được, đường nét, tỷ lệ khuôn mặt, màu da, biểu cảm, trang phục và bố cục hiện có. Không tạo hoặc thay thế chi tiết khuôn mặt, không làm người trong ảnh trông thành người khác.',
+    'Phục chế ảnh gốc này một cách chân thực và bảo tồn lịch sử của nó, dùng ảnh tải lên làm tài liệu tham chiếu danh tính DUY NHẤT.',
+    'BẮT BUỘC giữ nguyên danh tính của người trong ảnh gốc: giữ nguyên giới tính và cách thể hiện giới tính, hình dạng khuôn mặt, màu da và đặc điểm dân tộc, độ tuổi nhận biết được, kiểu tóc và tỷ lệ cơ thể. Chỉ giữ nguyên các chi tiết khuôn mặt/cơ thể hiện rõ trong ảnh gốc (nốt ruồi, tàn nhang, sẹo, hình xăm, nếp nhăn, vết chân chim, khuyết điểm...); tuyệt đối không thêm, bỏ bớt, phóng đại hoặc bịa ra bất kỳ chi tiết, nếp nhăn hoặc dấu hiệu lão hóa nào không có trong ảnh. Không đổi giới tính hoặc danh tính dù sửa chữa bất kỳ hư hại nào. Tuyệt đối không tạo mới, thay thế hoặc ghép một người khác; không làm người trong ảnh trông thành người khác.',
     'Sửa các vết xước, bụi, vết bẩn, vùng phai màu, nhiễu, mờ và hư hại chỉ khi chúng thực sự xuất hiện trong ảnh.',
     phrase('level', choices.level), phrase('sharpness', choices.sharpness), phrase('denoise', choices.denoise), phrase('color', choices.color),
-    'Tránh da nhựa, làm đẹp quá mức, hiệu ứng HDR, chi tiết bịa đặt, viền sắc quá mức hoặc thay đổi nền. Không thêm chữ, logo hoặc hình mờ.',
+    'Phạm vi phục chế chỉ giới hạn ở sửa chữa hư hại, khử nhiễu, làm nét và khôi phục màu như đã chọn; không sáng tác lại khuôn mặt, trang phục, kiểu tóc hoặc bối cảnh. Tránh da nhựa, làm đẹp quá mức, hiệu ứng HDR, chi tiết bịa đặt, viền sắc quá mức hoặc thay đổi nền. Không thêm chữ, logo hoặc hình mờ.',
   ].join(' ')
 }

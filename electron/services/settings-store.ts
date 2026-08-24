@@ -1,7 +1,7 @@
 import { app, safeStorage } from 'electron'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
-import type { ApiImageSize, GenerationSettings, ImageSize, SettingsInput, SettingsView } from '../../src/types/electron-api.js'
+import type { ApiImageSize, GenerationSettings, ImageSize, RequestMode, SettingsInput, SettingsView } from '../../src/types/electron-api.js'
 
 interface StoredSettings extends GenerationSettings {
   encryptedApiKey?: string
@@ -14,12 +14,14 @@ const defaults: GenerationSettings = {
   apiImageSize: '1024x1536',
   timeoutMs: 60000,
   additionalOptions: '',
+  requestMode: 'auto',
 }
 
 const settingsPath = () => path.join(app.getPath('userData'), 'settings.json')
 
 const imageSizes: readonly ImageSize[] = ['2x2', '35x45', '4x6']
 const apiImageSizes: readonly ApiImageSize[] = ['auto', '1024x1024', '1024x1536', '1536x1024']
+const requestModes: readonly RequestMode[] = ['auto', 'images-edits', 'chat-completions']
 
 async function readStored(): Promise<StoredSettings> {
   try {
@@ -30,6 +32,7 @@ async function readStored(): Promise<StoredSettings> {
       ...parsed,
       imageSize: imageSizes.includes(parsed.imageSize as ImageSize) ? parsed.imageSize as ImageSize : defaults.imageSize,
       apiImageSize: apiImageSizes.includes(parsed.apiImageSize as ApiImageSize) ? parsed.apiImageSize as ApiImageSize : defaults.apiImageSize,
+      requestMode: requestModes.includes(parsed.requestMode as RequestMode) ? parsed.requestMode as RequestMode : defaults.requestMode,
     }
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === 'ENOENT') return { ...defaults }
@@ -71,6 +74,7 @@ function sanitize(input: GenerationSettings): GenerationSettings {
     apiImageSize: apiImageSizes.includes(input.apiImageSize) ? input.apiImageSize : defaults.apiImageSize,
     timeoutMs: Math.min(Math.max(Math.round(input.timeoutMs), 5000), 300000),
     additionalOptions: input.additionalOptions.trim(),
+    requestMode: requestModes.includes(input.requestMode as RequestMode) ? input.requestMode as RequestMode : defaults.requestMode,
   }
 }
 

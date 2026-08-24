@@ -1,16 +1,24 @@
 import { Sparkles } from 'lucide-react'
-import type { EditorChoices } from '../features/editor/presets'
-import { optionLabel } from '../features/editor/presets'
-import { photoSizeLabels } from '../features/editor/print-presets'
 
-interface Props { choices: EditorChoices }
+interface Props {
+  prompt: string
+  edited: boolean
+  disabled?: boolean
+  title: string
+  description: string
+  onChange: (prompt: string) => void
+  onRegenerate: () => void
+}
 
-export function PromptSummary({ choices }: Props) {
-  const preset = optionLabel('preset', choices.preset) || 'Ảnh thẻ'
-  const size = photoSizeLabels[choices.size] ?? ''
+export function PromptEditor({ prompt, edited, disabled = false, title, description, onChange, onRegenerate }: Props) {
   return <section className="prompt-card">
-    <div className="card-heading"><div><span className="eyebrow"><Sparkles size={14} /> AI</span><h2>Thiết lập AI</h2></div></div>
-    <p className="prompt-summary-text">Ảnh của bạn sẽ được tạo bằng một lời nhắc AI được chuẩn bị sẵn dựa trên các lựa chọn ở bên trái — không cần nhập lời nhắc thủ công.</p>
-    <div className="prompt-summary-line">Kiểu ảnh: <strong>{preset}</strong><span>· Kích thước: {size}</span></div>
+    <div className="card-heading">
+      <div><span className="eyebrow"><Sparkles size={14} /> AI</span><h2>{title}</h2></div>
+      {edited && <button className="button button-secondary button-small" disabled={disabled} onClick={onRegenerate}>Tạo lại từ lựa chọn</button>}
+    </div>
+    <p className="prompt-summary-text">{description}</p>
+    <label className="sr-only" htmlFor="generation-prompt">Lời nhắc AI</label>
+    <textarea id="generation-prompt" disabled={disabled} value={prompt} onChange={(event) => onChange(event.target.value)} />
+    <p className="helper">Lời nhắc này sẽ được gửi trực tiếp khi tạo ảnh. Không để trống để tiếp tục.</p>
   </section>
 }

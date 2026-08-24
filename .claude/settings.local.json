@@ -6,7 +6,15 @@
       "Bash(echo *)",
       "Bash(unzip -l ~/Library/Caches/electron/electron-v31.7.7-darwin-arm64.zip)",
       "Bash(unzip -l /Users/hoangngo/Library/Caches/electron/c94f2fc32e1fb05767f75322ea533eeb9828155f017ec184140930a3ec825e81/electron-v31.7.7-darwin-arm64.zip)",
-      "Bash(/Users/hoangngo/Code/PhotoIdWork/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron --version)"
+      "Bash(/Users/hoangngo/Code/PhotoIdWork/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron --version)",
+      "Bash(npm.cmd run *)",
+      "Bash(node node_modules/typescript/bin/tsc -b)",
+      "Bash(node node_modules/typescript/bin/tsc -p electron/tsconfig.json --noEmit)",
+      "Bash(node node_modules/eslint/bin/eslint.js . --max-warnings=0)",
+      "Bash(node node_modules/vite/bin/vite.js build)",
+      "Bash(node node_modules/typescript/bin/tsc -p electron/tsconfig.json)",
+      "WebSearch",
+      "Bash(node *)"
     ]
   }
 }

@@ -45,7 +45,7 @@ export function ImageDropzone({ image, onImage, onPick, onError, mode = 'photoId
     onDrop={(event) => { if (disabled) return; event.preventDefault(); setDragging(false); void readFile(event.dataTransfer.files[0]) }}
   >
     <input disabled={disabled} ref={input} className="hidden" type="file" accept="image/png,image/jpeg,image/webp" onChange={(event) => { void readFile(event.target.files?.[0]); event.currentTarget.value = '' }} />
-    {image ? <img className="source-image" src={image} alt={mode === 'restoration' ? 'Ảnh cũ cần phục chế đã chọn' : mode === 'outdoor' ? 'Ảnh chân dung dùng để tạo ảnh ngoại cảnh đã chọn' : 'Ảnh chân dung gốc đã chọn'} /> : <><div className="icon-orb"><UploadCloud size={26} /></div><strong>{mode === 'restoration' ? 'Kéo thả ảnh cũ hoặc ảnh mờ vào đây' : 'Kéo thả ảnh chân dung vào đây'}</strong><span>PNG, JPG hoặc WebP · tối đa 15 MB</span></>}
+    {image ? <img className="source-image" src={image} alt={mode === 'restoration' ? 'Ảnh cũ cần phục chế đã chọn' : mode === 'outdoor' ? 'Ảnh chân dung dùng để tạo ảnh ngoại cảnh đã chọn' : 'Ảnh chân dung gốc đã chọn'} /> : <><div className="icon-orb"><UploadCloud size={26} /></div><strong>{mode === 'restoration' ? 'Kéo thả ảnh cũ hoặc ảnh mờ vào đây' : mode === 'outdoor' ? 'Kéo thả ảnh chân dung để tạo nền phong cảnh' : 'Kéo thả ảnh chân dung vào đây'}</strong><span>PNG, JPG hoặc WebP · tối đa 15 MB</span></>}
     <div className="dropzone-actions"><button disabled={disabled} className="button button-secondary" onClick={() => input.current?.click()}><ImagePlus size={16} /> Duyệt tệp</button><button disabled={disabled} className="button button-quiet" onClick={onPick}>Chọn từ hệ thống</button></div>
   </div>
 }
