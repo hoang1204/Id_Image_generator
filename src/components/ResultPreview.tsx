@@ -1,0 +1,8 @@
+import { Download, Image as ImageIcon, LoaderCircle } from 'lucide-react'
+
+interface Props { image: string | null; generating: boolean; downloading: boolean; onDownload: () => void; mode?: 'photoId' | 'restoration' | 'outdoor' }
+export function ResultPreview({ image, generating, downloading, onDownload, mode = 'photoId' }: Props) {
+  const restoration = mode === 'restoration'
+  const outdoor = mode === 'outdoor'
+  return <aside className="result-panel"><div className="result-heading"><div><span className="eyebrow">Kết quả</span><h2>{restoration ? 'Ảnh đã phục chế' : outdoor ? 'Chân dung ngoại cảnh' : 'Ảnh hoàn thiện của bạn'}</h2></div>{image && <button className="button button-secondary" disabled={downloading} onClick={onDownload}><Download size={16} /> Tải xuống</button>}</div><div className="result-stage">{generating ? <div className="result-empty"><LoaderCircle className="spin" size={34} /><strong>{restoration ? 'Đang phục chế ảnh của bạn' : outdoor ? 'Đang tạo chân dung ngoại cảnh' : 'Đang tạo ảnh của bạn'}</strong><span>Quá trình này có thể mất một chút thời gian. Vui lòng giữ cửa sổ này mở.</span></div> : image ? <img src={image} alt={restoration ? 'Ảnh đã được phục chế' : outdoor ? 'Chân dung ngoại cảnh đã tạo' : 'Ảnh thẻ chuyên nghiệp đã tạo'} /> : <div className="result-empty"><ImageIcon size={34} /><strong>Kết quả sẽ hiển thị ở đây</strong><span>{restoration ? 'Tải ảnh cũ hoặc ảnh mờ lên, chọn tùy chọn rồi phục chế.' : outdoor ? 'Tải ảnh chân dung lên, chọn phong cảnh rồi tạo ảnh.' : 'Tải lên ảnh chân dung, chọn phong cách, rồi tạo ảnh.'}</span></div>}</div></aside>
+}
